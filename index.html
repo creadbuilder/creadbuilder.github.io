@@ -1,0 +1,28 @@
+  <!DOCTYPE html>
+    <html>
+    <head><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/></head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/willowsystems/jSignature/master/libs/jSignature.min.js"></script>
+    <body>
+    <form>
+    ...
+    Signature:
+    <div id="signature"></div><br>
+    <img id="rendered" src="" style="display:none">
+    <input type="Submit" value="Save" onclick="getSignature();"/>
+    ...
+    </form>
+    </body>
+    <script>
+      document.getElementById("signature").style.border = "1px solid black";
+      $("#signature").jSignature({
+        'background-color': 'transparent',
+        'decor-color': 'transparent'
+      });
+      function getSignature(){
+        $("img#rendered").attr("src",$('#signature').jSignature('getData','default'));
+        var signature = document.getElementById('rendered').src;
+        google.script.run.saveToDrive(signature);
+      } 
+    </script>
+    </html>
